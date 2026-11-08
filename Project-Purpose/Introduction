@@ -1,0 +1,3 @@
+In a real company, engineers do not expose every server directly to the internet. They build a private network, put servers in private subnets, give them no public IP addresses, and control all access through identity and logging. They also give the servers only the minimum permissions needed to do their job.
+
+This project teaches that pattern. By the end, I will have built a small but production‑shaped environment: a private Linux server, a private storage bucket, no open SSH port, and all administrative access routed through AWS Systems Manager. That is the same operating model used in real cloud operations teams, just at a smaller scale.
