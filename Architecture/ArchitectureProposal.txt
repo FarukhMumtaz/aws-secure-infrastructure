@@ -1,0 +1,29 @@
+AWS Region (your chosen region)
+│
+└── VPC  10.0.0.0/16
+    │
+    ├── Public Subnet  10.0.1.0/24
+    │   └── (No EC2 instances here. This subnet only exists if later
+    │        need a load balancer. 
+    │
+    ├── Private Subnet  10.0.2.0/24
+    │   │
+    │   └── EC2 Linux Instance (Amazon Linux 2023, t3.micro or t4g.micro)
+    │       ├── No public IPv4 address
+    │       ├── No SSH port (22) open to the internet
+    │       ├── IAM Instance Profile → SSM managed instance
+    │       └── Security Group: allow no inbound from 0.0.0.0/0
+    │
+    ├── VPC Endpoints (Interface endpoints for SSM)
+    │   ├── com.amazonaws.<region>.ssm
+    │   ├── com.amazonaws.<region>.ssmmessages
+    │   └── com.amazonaws.<region>.ec2messages
+    │   (These replace a NAT Gateway for management traffic.)
+    │
+    ├── Gateway VPC Endpoint for S3
+    │   └── com.amazonaws.<region>.s3  (free, keeps S3 traffic off the internet)
+    │
+    └── Private S3 Bucket
+        ├── Block Public Access: ON
+        ├── Bucket policy: deny non‑TLS access
+        └── Only the EC2 instance role can read/write to this bucket
