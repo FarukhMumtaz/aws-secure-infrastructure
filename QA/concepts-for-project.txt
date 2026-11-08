@@ -1,0 +1,12 @@
+What does /16 mean in 10.0.0.0/16?
+The VPC CIDR block 10.0.0.0/16 has 65,536 addresses. But AWS reserves 5 IP addresses per subnet (network address, VPC router, DNS, future use, broadcast). So if you carve /24 subnets, each has 256 − 5 = 251 usable addresses, not 256. Your /24 private subnet 10.0.2.0/24 has 251 usable IPs, not 256. 
+
+Difference between a security group and a network ACL?
+Security groups are stateful: if you allow inbound traffic on a port, the return traffic is automatically allowed regardless of outbound rules. Outbound rules only apply to new connections initiated from the instance. Network ACLs, by contrast, are stateless — you must allow return traffic explicitly. 
+Difference between an IAM user and an IAM role?
+
+What problem does a VPC endpoint solve?
+vpc endpoint acts as an intermediate of communication between  vpc and related aws services neglecting the ned for nat ,,traffic stays inside the aws hence cutting costs
+
+How would you investigate “the website is not loading” on a Linux server?
+Is the instance running? → Is the service running? → Is the service listening on the expected port? → Is the security group allowing the traffic? → Is the route table correct? → Is DNS resolving? → Is the application returning an error? → What do the application logs say?
